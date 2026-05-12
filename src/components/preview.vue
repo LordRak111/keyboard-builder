@@ -79,13 +79,13 @@ const KEY_LAYOUTS: Record<string, Layout> = {
     [{l:'Ctrl',w:1.25}, {l:'Win',w:1.25}, {l:'Alt',w:1.25}, {l:'Space',w:6.25}, {l:'Alt',w:1.25}, {l:'Fn',w:1.25}, {l:'←',w:1}, {l:'↓',w:1}, {l:'↑',w:1}, {l:'→',w:1}]
   ],
   'full': [
-    [{l:'Esc',w:1}, {l:'F1',w:1}, {l:'F2',w:1}, {l:'F3',w:1}, {l:'F4',w:1}, {l:'F5',w:1}, {l:'F6',w:1}, {l:'F7',w:1}, {l:'F8',w:1}, {l:'F9',w:1}, {l:'F10',w:1}, {l:'F11',w:1}, {l:'F12',w:1}, {l:'Print',w:1}, {l:'ScrLk',w:1}, {l:'Pause',w:1}],
-    [{l:'`',w:1}, {l:'1',w:1}, {l:'2',w:1}, {l:'3',w:1}, {l:'4',w:1}, {l:'5',w:1}, {l:'6',w:1}, {l:'7',w:1}, {l:'8',w:1}, {l:'9',w:1}, {l:'0',w:1}, {l:'-',w:1}, {l:'=',w:1}, {l:'⌫',w:2}, {l:'Ins',w:1}, {l:'Home',w:1}, {l:'PgUp',w:1}],
-    [{l:'Tab',w:1.5}, {l:'Q',w:1}, {l:'W',w:1}, {l:'E',w:1}, {l:'R',w:1}, {l:'T',w:1}, {l:'Y',w:1}, {l:'U',w:1}, {l:'I',w:1}, {l:'O',w:1}, {l:'P',w:1}, {l:'[',w:1.5}, {l:']',w:1.5}, {l:'\\',w:1.5}, {l:'Del',w:1}, {l:'End',w:1}, {l:'PgDn',w:1}],
-    [{l:'Caps',w:1.75}, {l:'A',w:1}, {l:'S',w:1}, {l:'D',w:1}, {l:'F',w:1}, {l:'G',w:1}, {l:'H',w:1}, {l:'J',w:1}, {l:'K',w:1}, {l:'L',w:1}, {l:';',w:1}, {l:"'",w:1}, {l:'Enter',w:2.25}],
-    [{l:'Shift',w:2.25}, {l:'Z',w:1}, {l:'X',w:1}, {l:'C',w:1}, {l:'V',w:1}, {l:'B',w:1}, {l:'N',w:1}, {l:'M',w:1}, {l:',',w:1}, {l:'.',w:1}, {l:'/',w:1}, {l:'Shift',w:2.75}, {l:'↑',w:1}],
-    [{l:'Ctrl',w:1.25}, {l:'Win',w:1.25}, {l:'Alt',w:1.25}, {l:'Space',w:6.25}, {l:'Alt',w:1.25}, {l:'Fn',w:1.25}, {l:'Menu',w:1.25}, {l:'Ctrl',w:1.25}, {l:'←',w:1}, {l:'↓',w:1}, {l:'→',w:1}]
-  ]
+  [{l:'Esc',w:1}, {l:'F1',w:1}, {l:'F2',w:1}, {l:'F3',w:1}, {l:'F4',w:1}, {l:'F5',w:1}, {l:'F6',w:1}, {l:'F7',w:1}, {l:'F8',w:1}, {l:'F9',w:1}, {l:'F10',w:1}, {l:'F11',w:1}, {l:'F12',w:1}, {l:'PrtSc',w:1}, {l:'ScrLk',w:1}, {l:'Pause',w:1}],
+  [{l:'`',w:1}, {l:'1',w:1}, {l:'2',w:1}, {l:'3',w:1}, {l:'4',w:1}, {l:'5',w:1}, {l:'6',w:1}, {l:'7',w:1}, {l:'8',w:1}, {l:'9',w:1}, {l:'0',w:1}, {l:'-',w:1}, {l:'=',w:1}, {l:'⌫',w:2}, {l:'Ins',w:1}, {l:'Home',w:1}, {l:'PgUp',w:1}, {l:'Num',w:1}, {l:'7',w:1}, {l:'8',w:1}, {l:'9',w:1}, {l:'+',w:1.5}],
+  [{l:'Tab',w:1.5}, {l:'Q',w:1}, {l:'W',w:1}, {l:'E',w:1}, {l:'R',w:1}, {l:'T',w:1}, {l:'Y',w:1}, {l:'U',w:1}, {l:'I',w:1}, {l:'O',w:1}, {l:'P',w:1}, {l:'[',w:1.5}, {l:']',w:1.5}, {l:'\\',w:1.5}, {l:'Del',w:1}, {l:'End',w:1}, {l:'PgDn',w:1}, {l:'4',w:1}, {l:'5',w:1}, {l:'6',w:1}],
+  [{l:'Caps',w:1.75}, {l:'A',w:1}, {l:'S',w:1}, {l:'D',w:1}, {l:'F',w:1}, {l:'G',w:1}, {l:'H',w:1}, {l:'J',w:1}, {l:'K',w:1}, {l:'L',w:1}, {l:';',w:1}, {l:"'",w:1}, {l:'Enter',w:2.25}, {l:'1',w:1}, {l:'2',w:1}, {l:'3',w:1}, {l:'Ent',w:1.5}],
+  [{l:'Shift',w:2.25}, {l:'Z',w:1}, {l:'X',w:1}, {l:'C',w:1}, {l:'V',w:1}, {l:'B',w:1}, {l:'N',w:1}, {l:'M',w:1}, {l:',',w:1}, {l:'.',w:1}, {l:'/',w:1}, {l:'Shift',w:1.75}, {l:'↑',w:1}, {l:'0',w:2}, {l:'.',w:1}],
+  [{l:'Ctrl',w:1.25}, {l:'Win',w:1.25}, {l:'Alt',w:1.25}, {l:'Space',w:6.25}, {l:'Alt',w:1.25}, {l:'Fn',w:1.25}, {l:'Menu',w:1.25}, {l:'Ctrl',w:1.25}, {l:'←',w:1}, {l:'↓',w:1}, {l:'→',w:1}]
+]
 }
 
 const layout = computed(() => KEY_LAYOUTS[props.size as keyof typeof KEY_LAYOUTS] || KEY_LAYOUTS['tkl'])
@@ -106,14 +106,13 @@ const getRgbStyle = (rIdx: number, kIdx: number) => {
 
 <style scoped>
 .keyboard-case {
+  overflow: hidden;
   display: inline-flex;
   flex-direction: column;
-  width: fit-content;
-  min-width: max-content;
   padding: 12px;
   border-radius: 10px;
   background: #2c3e50;
-  border: 1px solid #1a252f;
+  border: 10px solid #1a252f;
   box-shadow: 0 8px 24px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.1);
   transition: all 0.3s ease;
   box-sizing: border-box;
@@ -252,5 +251,8 @@ const getRgbStyle = (rIdx: number, kIdx: number) => {
 .keycap.rgb-reactive:active .key-label {
   color: v-bind(rgbColor);
   text-shadow: 0 0 8px v-bind(rgbColor), 0 0 16px v-bind(rgbColor);
+}
+.wood {
+  position: absolute;
 }
 </style>

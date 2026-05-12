@@ -17,6 +17,3 @@ pnpm install
 ```bash
 pnpm dev
 ```
-
-
-## Навайбкоженая фигня

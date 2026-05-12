@@ -1,7 +1,7 @@
 <template>
   <div class="keyboard-configurator">
     <h1>Конструктор механической клавиатуры</h1>
-    
+
     <div class="configurator-layout">
       <div class="options-panel">
         <div class="option-group">
@@ -11,7 +11,7 @@
               v-for="size in KEYBOARD_SIZES"
               :key="size.value"
               :class="{ active: selectedOptions.size === size.value }"
-              @click="selectedOptions.size = size.value  as KeyboardSize"
+              @click="selectedOptions.size = size.value as KeyboardSize"
             >
               {{ size.label }}
             </button>
@@ -39,8 +39,12 @@
             <button
               v-for="profile in KEYCAP_PROFILES"
               :key="profile.value"
-              :class="{ active: selectedOptions.keycapProfile === profile.value }"
-              @click="selectedOptions.keycapProfile = profile.value as KeycapProfile"
+              :class="{
+                active: selectedOptions.keycapProfile === profile.value,
+              }"
+              @click="
+                selectedOptions.keycapProfile = profile.value as KeycapProfile
+              "
             >
               {{ profile.label }}
             </button>
@@ -53,8 +57,12 @@
             <button
               v-for="material in CASE_MATERIALS"
               :key="material.value"
-              :class="{ active: selectedOptions.caseMaterial === material.value }"
-              @click="selectedOptions.caseMaterial = material.value as CaseMaterial"
+              :class="{
+                active: selectedOptions.caseMaterial === material.value,
+              }"
+              @click="
+                selectedOptions.caseMaterial = material.value as CaseMaterial
+              "
             >
               {{ material.label }}
             </button>
@@ -63,34 +71,73 @@
       </div>
 
       <div class="preview-panel">
+        <div class="option-group">
+          <h3>Режим подсветки</h3>
+          <div class="option-buttons">
+            <button
+              v-for="mode in RGB_MODES"
+              :key="mode.value"
+              :class="{ active: selectedRgbMode === mode.value }"
+              @click="selectedRgbMode = mode.value"
+            >
+              {{ mode.label }}
+            </button>
+          </div>
+
+          <div
+            v-if="
+              selectedRgbMode !== 'off' &&
+              selectedRgbMode !== 'rainbow' &&
+              selectedRgbMode !== 'wave'
+            "
+            class="color-picker-wrapper"
+          >
+            <label>Цвет подсветки:</label>
+            <input
+              type="color"
+              v-model="selectedRgbColor"
+              class="color-input"
+            />
+          </div>
+        </div>
+
         <h2 class="small-title">Ваша сборка</h2>
-        
+
         <div class="keyboard-preview">
-   <KeyboardPreview
-   :size="selectedOptions.size"
-   :switchType="selectedOptions.switchType"
-   :keycapProfile="selectedOptions.keycapProfile"
-   :caseMaterial="selectedOptions.caseMaterial"
-   :rgbMode="selectedRgbMode"
-   :rgbColor="selectedRgbColor"
-   /></div>
+          <KeyboardPreview
+            :size="selectedOptions.size"
+            :switchType="selectedOptions.switchType"
+            :keycapProfile="selectedOptions.keycapProfile"
+            :caseMaterial="selectedOptions.caseMaterial"
+            :rgbMode="selectedRgbMode"
+            :rgbColor="selectedRgbColor"
+          />
+        </div>
 
         <div class="build-summary">
           <div class="summary-item">
             <span class="summary-label">Форм-фактор:</span>
-            <span class="summary-value">{{ getLabel(selectedOptions.size, KEYBOARD_SIZES) }}</span>
+            <span class="summary-value">{{
+              getLabel(selectedOptions.size, KEYBOARD_SIZES)
+            }}</span>
           </div>
           <div class="summary-item">
             <span class="summary-label">Переключатели:</span>
-            <span class="summary-value">{{ getLabel(selectedOptions.switchType, SWITCH_TYPES) }}</span>
+            <span class="summary-value">{{
+              getLabel(selectedOptions.switchType, SWITCH_TYPES)
+            }}</span>
           </div>
           <div class="summary-item">
             <span class="summary-label">Профиль кейкапов:</span>
-            <span class="summary-value">{{ getLabel(selectedOptions.keycapProfile, KEYCAP_PROFILES) }}</span>
+            <span class="summary-value">{{
+              getLabel(selectedOptions.keycapProfile, KEYCAP_PROFILES)
+            }}</span>
           </div>
           <div class="summary-item">
             <span class="summary-label">Материал корпуса:</span>
-            <span class="summary-value">{{ getLabel(selectedOptions.caseMaterial, CASE_MATERIALS) }}</span>
+            <span class="summary-value">{{
+              getLabel(selectedOptions.caseMaterial, CASE_MATERIALS)
+            }}</span>
           </div>
           <div class="summary-item total-price">
             <span class="summary-label">Примерная стоимость:</span>
@@ -104,94 +151,74 @@
       </div>
     </div>
   </div>
-  <div class="option-group">
-  <h3>Режим подсветки</h3>
-  <div class="option-buttons">
-    <button
-      v-for="mode in RGB_MODES"
-      :key="mode.value"
-      :class="{ active: selectedRgbMode === mode.value }"
-      @click="selectedRgbMode = mode.value"
-    >
-      {{ mode.label }}
-    </button>
-  </div>
-  
-  <div v-if="selectedRgbMode !== 'off' && selectedRgbMode !== 'rainbow' && selectedRgbMode !== 'wave'" class="color-picker-wrapper">
-    <label>Цвет подсветки:</label>
-    <input type="color" v-model="selectedRgbColor" class="color-input" />
-  </div>
-</div>
-
 </template>
 
 <script setup lang="ts">
-import { reactive, computed, ref } from 'vue'
-import KeyboardPreview from '../components/preview.vue'
+import { reactive, ref } from "vue";
+import KeyboardPreview from "../components/preview.vue";
 
-import type { 
-  BuildOptions, 
-  KeyboardSize, 
-  KeyboardOption, 
-  SwitchComponent,
+import type {
+  BuildOptions,
+  KeyboardSize,
+  KeyboardOption,
   SwitchType,
   KeycapProfile,
-  CaseMaterial
-} from '../ts/types'
-import { 
-  KEYBOARD_SIZES, 
-  SWITCH_TYPES, 
-  KEYCAP_PROFILES, 
+  CaseMaterial,
+} from "../ts/types";
+import {
+  KEYBOARD_SIZES,
+  SWITCH_TYPES,
+  KEYCAP_PROFILES,
   CASE_MATERIALS,
-  PRICE_MAP 
-} from '../ts/types'
+  PRICE_MAP,
+} from "../ts/types";
 
-
-const selectedRgbMode = ref<'off' | 'static' | 'rainbow' | 'wave' | 'breathing' | 'reactive'>('off')
-const selectedRgbColor = ref('#ff3366')
+const selectedRgbMode = ref<
+  "off" | "static" | "rainbow" | "wave" | "breathing" | "reactive"
+>("off");
+const selectedRgbColor = ref("#ff3366");
 
 const RGB_MODES = [
-  { label: 'Выкл', value: 'off' },
-  { label: 'Статический', value: 'static' },
-  { label: 'Радуга', value: 'rainbow' },
-  { label: 'Волна', value: 'wave' },
-  { label: 'Дыхание', value: 'breathing' },
-  { label: 'Реактивный', value: 'reactive' }
-] as const
+  { label: "Выкл", value: "off" },
+  { label: "Статический", value: "static" },
+  { label: "Радуга", value: "rainbow" },
+  { label: "Волна", value: "wave" },
+  { label: "Дыхание", value: "breathing" },
+  { label: "Реактивный", value: "reactive" },
+] as const;
 
 const selectedOptions = reactive<BuildOptions>({
-  size: 'tkl',
-  switchType: 'linear',
-  keycapProfile: 'cherry',
-  caseMaterial: 'aluminum'
-})
+  size: "tkl",
+  switchType: "linear",
+  keycapProfile: "cherry",
+  caseMaterial: "aluminum",
+});
 
 const getLabel = (value: string, options: KeyboardOption[]): string => {
-  return options.find(opt => opt.value === value)?.label || value
-}
+  return options.find((opt) => opt.value === value)?.label || value;
+};
 
 const calculatePrice = (): number => {
-  let total = 0
-  const options = selectedOptions as Record<string, string>
-  
+  let total = 0;
+  const options = selectedOptions as Record<string, string>;
+
   for (const [key, value] of Object.entries(options)) {
-    total += PRICE_MAP[value] || 0
+    total += PRICE_MAP[value] || 0;
   }
-  
-  return total
-}
+
+  return total;
+};
 
 const saveBuild = (): void => {
   const build = {
     ...selectedOptions,
-    id: crypto.randomUUID(), 
+    id: crypto.randomUUID(),
     totalPrice: calculatePrice(),
-    createdAt: new Date().toISOString()
-  }
-  
-  console.log('Сборка сохранена:', build)
-}
+    createdAt: new Date().toISOString(),
+  };
 
+  console.log("Сборка сохранена:", build);
+};
 </script>
 
 <style scoped>
@@ -213,14 +240,14 @@ const saveBuild = (): void => {
 }
 
 .small-title {
-    color: #495057;
+  color: #495057;
 }
 
 .keyboard-configurator {
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 h1 {
@@ -298,6 +325,7 @@ h1 {
 
 .keyboard-preview {
   margin: 1.5rem 0;
+  width: 1500px;
 }
 
 .preview-placeholder {
@@ -362,5 +390,35 @@ h1 {
 
 .save-build-btn:hover {
   background: #1c7ed6;
+}
+
+.keyboard-preview {
+  width: 400px;
+  margin: 1.5rem 0;
+  padding-bottom: 12px;
+  border-radius: 8px;
+}
+
+.keyboard-case {
+  display: inline-flex;
+  flex-direction: column;
+  min-width: max-content;
+  width: fit-content;
+}
+
+.keyboard-preview::-webkit-scrollbar {
+  height: 6px;
+}
+.keyboard-preview::-webkit-scrollbar-thumb {
+  background: #adb5bd;
+  border-radius: 3px;
+}
+.keyboard-preview::-webkit-scrollbar-track {
+  background: #f1f3f5;
+}
+
+.preview-panel {
+  min-width: 800px;
+  overflow: visible;
 }
 </style>
