@@ -66,13 +66,14 @@
         <h2 class="small-title">Ваша сборка</h2>
         
         <div class="keyboard-preview">
-  <KeyboardPreview
-    :size="selectedOptions.size"
-    :switchType="selectedOptions.switchType"
-    :keycapProfile="selectedOptions.keycapProfile"
-    :caseMaterial="selectedOptions.caseMaterial"
-    />
-        </div>
+   <KeyboardPreview
+   :size="selectedOptions.size"
+   :switchType="selectedOptions.switchType"
+   :keycapProfile="selectedOptions.keycapProfile"
+   :caseMaterial="selectedOptions.caseMaterial"
+   :rgbMode="selectedRgbMode"
+   :rgbColor="selectedRgbColor"
+   /></div>
 
         <div class="build-summary">
           <div class="summary-item">
@@ -103,10 +104,29 @@
       </div>
     </div>
   </div>
+  <div class="option-group">
+  <h3>Режим подсветки</h3>
+  <div class="option-buttons">
+    <button
+      v-for="mode in RGB_MODES"
+      :key="mode.value"
+      :class="{ active: selectedRgbMode === mode.value }"
+      @click="selectedRgbMode = mode.value"
+    >
+      {{ mode.label }}
+    </button>
+  </div>
+  
+  <div v-if="selectedRgbMode !== 'off' && selectedRgbMode !== 'rainbow' && selectedRgbMode !== 'wave'" class="color-picker-wrapper">
+    <label>Цвет подсветки:</label>
+    <input type="color" v-model="selectedRgbColor" class="color-input" />
+  </div>
+</div>
+
 </template>
 
 <script setup lang="ts">
-import { reactive, computed } from 'vue'
+import { reactive, computed, ref } from 'vue'
 import KeyboardPreview from '../components/preview.vue'
 
 import type { 
@@ -125,6 +145,19 @@ import {
   CASE_MATERIALS,
   PRICE_MAP 
 } from '../ts/types'
+
+
+const selectedRgbMode = ref<'off' | 'static' | 'rainbow' | 'wave' | 'breathing' | 'reactive'>('off')
+const selectedRgbColor = ref('#ff3366')
+
+const RGB_MODES = [
+  { label: 'Выкл', value: 'off' },
+  { label: 'Статический', value: 'static' },
+  { label: 'Радуга', value: 'rainbow' },
+  { label: 'Волна', value: 'wave' },
+  { label: 'Дыхание', value: 'breathing' },
+  { label: 'Реактивный', value: 'reactive' }
+] as const
 
 const selectedOptions = reactive<BuildOptions>({
   size: 'tkl',
@@ -162,6 +195,23 @@ const saveBuild = (): void => {
 </script>
 
 <style scoped>
+.color-picker-wrapper {
+  margin-top: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: #495057;
+}
+.color-input {
+  width: 40px;
+  height: 28px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background: none;
+}
+
 .small-title {
     color: #495057;
 }
