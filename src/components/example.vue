@@ -66,9 +66,12 @@
         <h2 class="small-title">Ваша сборка</h2>
         
         <div class="keyboard-preview">
-          <div class="preview-placeholder">
-            🎹 Здесь будет визуализация клавиатуры
-          </div>
+  <KeyboardPreview
+    :size="selectedOptions.size"
+    :switchType="selectedOptions.switchType"
+    :keycapProfile="selectedOptions.keycapProfile"
+    :caseMaterial="selectedOptions.caseMaterial"
+    />
         </div>
 
         <div class="build-summary">
@@ -104,6 +107,7 @@
 
 <script setup lang="ts">
 import { reactive, computed } from 'vue'
+import KeyboardPreview from '../components/preview.vue'
 
 import type { 
   BuildOptions, 
